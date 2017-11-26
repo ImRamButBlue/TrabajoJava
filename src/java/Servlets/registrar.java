@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sun.font.Script;
 
 /**
  *
@@ -42,102 +43,71 @@ public class registrar extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /*creo sesion*/
             EntityManagerFactory emf;
-            emf=Persistence.createEntityManagerFactory("WebMegaSushiTiendaPU");
-            
+            emf = Persistence.createEntityManagerFactory("WebMegaSushiTiendaPU");
+
             EntityManager em = emf.createEntityManager();
-            
+
             String idUs;
             String pass;
             String telefono;
-            
+
             int direID = 0;
-            String calle ;
+            String calle;
             String comuna;
             int nmro;
             int nrodpto;
-            if (request.getParameter("nombre").trim().length() <4 || 
-                request.getParameter("nombre").trim().length() <4 ) 
-            {
-                out.print("Ni el nombre de usuario ni la contraseña pueden tener menos de 4 caracteres");
-            }
-            else
-            {
-                idUs =request.getParameter("nombre");
-                pass = request.getParameter("password");
-                telefono = request.getParameter("telefono");
 
+            idUs = request.getParameter("nombre");
+            pass = request.getParameter("password");
+            telefono = request.getParameter("telefono");
 
-                Usuario us =new Usuario(idUs, pass);
-                us.setTelefono(telefono);
+            Usuario us = new Usuario(idUs, pass);
+            us.setTelefono(telefono);
 
-                em.getTransaction().begin();
-                em.persist(us);
-                em.getTransaction().commit();
-                if (request.getParameter("calle").trim().length() < 4 || 
-                    request.getParameter("comuna").trim().length() < 4 || 
-                    request.getParameter("numero").trim().length() < 1 ||
-                    request.getParameter("numerodpto").trim().length() < 1) 
-                {
-                    out.print("Calle y comuna deben tener almenos 4 caracteres y los números deben ser mayores a 0");
-                    response.sendRedirect("registrarse.jsp");
-                }
-                else   
-                {
+            em.getTransaction().begin();
+            em.persist(us);
+            em.getTransaction().commit();
 
-                    direID = Integer.parseInt(request.getParameter("idDireccion"));
-                    calle = request.getParameter("calle");
-                    comuna = request.getParameter("comuna");
-                    nmro = Integer.parseInt(request.getParameter("numero"));
-                    nrodpto = Integer.parseInt(request.getParameter("numerodpto"));
+            direID = Integer.parseInt(request.getParameter("idDireccion"));
+            calle = request.getParameter("calle");
+            comuna = request.getParameter("comuna");
+            nmro = Integer.parseInt(request.getParameter("numero"));
+            nrodpto = Integer.parseInt(request.getParameter("numerodpto"));
 
-                    Direccion d=new Direccion(direID, calle, comuna, nmro);
-                    d.setUsuarioid(us);
-                    d.setNumeroDpto(nrodpto);
-                    em.getTransaction().begin();
-                    em.persist(d);
-                    em.getTransaction().commit();
-                    HttpSession sesion = request.getSession(true);
+            Direccion d = new Direccion(direID, calle, comuna, nmro);
+            d.setUsuarioid(us);
+            d.setNumeroDpto(nrodpto);
+            em.getTransaction().begin();
+            em.persist(d);
+            em.getTransaction().commit();
+            HttpSession sesion = request.getSession(true);
 
-                    sesion.setAttribute("usuario",us);
-                    em.close();
-                    emf.close();
-                    response.sendRedirect("index.jsp");
-                }
-            }
- 
-            
-            
-            
+            sesion.setAttribute("usuario", us);
+            em.close();
+            emf.close();
+            response.sendRedirect("index.jsp");
+
             /*Lo que intente hacer es crear primero la direccion , hacerle el commit para que la guarde , y despues enlazar esa direccion al usuario*/
-           
-            
-           
-            /*
+ /*
             dir.setDireccionID(Integer.parseInt(request.getParameter("idDireccion")));
             dir.setCalle(request.getParameter("calle"));
             dir.setComuna(request.getParameter("comuna"));
             dir.setNumero(Integer.parseInt(request.getParameter("numero")));
             dir.setNumero(Integer.parseInt(request.getParameter("numerodpto")));
-            */
-           
-            /*us.setDireccionID(dir.getDireccionID());*/
-            
-            /*^ Esa es la clave foranea , y pide un objeto tipo Direccion , como la tabla misma*/
-            
-            /*us.setId(request.getParameter("nombre"));
+             */
+
+ /*us.setDireccionID(dir.getDireccionID());*/
+
+ /*^ Esa es la clave foranea , y pide un objeto tipo Direccion , como la tabla misma*/
+
+ /*us.setId(request.getParameter("nombre"));
             us.setPassword(request.getParameter("password"));
             us.setTelefono(request.getParameter("telefono"));
-            */
-            
-           
-            
-            
+             */
 //            HttpSession ses = request.getSession(true);
-//            
+//
 //            Usuario xx=(Usuario)ses.getAttribute("usuario");
-//            
-            
-            
+//
             /*
             HttpSession res = request.getSession(true);
             String nombreUsuario = request.getParameter("nombre");
@@ -148,14 +118,13 @@ public class registrar extends HttpServlet {
             String comuna = request.getParameter("comuna");
             String numero = request.getParameter("numero");
             String numerodpto = request.getParameter("numerodpto");
-            
+
             Direccion nuevadireccion = new Direccion();
             Usuario nuevoUsuario = new Usuario();
-            */ 
-            
-            /*Validaciones*/
-            /*http://www.forosdelweb.com/f45/aporte-registro-login-usuarios-con-jsp-servlets-mysql-930805/*/
+             */
 
+ /*Validaciones*/
+ /*http://www.forosdelweb.com/f45/aporte-registro-login-usuarios-con-jsp-servlets-mysql-930805/*/
         }
     }
 

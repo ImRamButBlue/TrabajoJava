@@ -52,6 +52,7 @@
         <link href="assets/corporate/css/style-responsive.css" rel="stylesheet">
         <link href="assets/corporate/css/themes/red.css" rel="stylesheet" id="style-color">
         <link href="assets/corporate/css/custom.css" rel="stylesheet">
+        <script src="ScriptT.js" type="text/javascript"></script>
         <!-- Theme styles END -->
     </head>
     <!-- Head END -->
@@ -279,22 +280,20 @@
             <div class="row">
                 <div class="col-lg-4">
                 <h3>Ingreso de datos para Nuevo Usuario </h3>
-                    <form method="post" action="registrar" role="form">
+                <form name="form1" method="post" action="registrar" role="form">
                         
                         <label for="nombre">Nombre de cuenta</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" />
+                        <input type="text" name="nombre" id="nombre" minlength="4" class="form-control" oninvalid="setCustomValidity('Ingrese nombre minimo 4 caracteres')" required/>
                         <label for="nombre">Telefono</label>
                         <input type="number" name="telefono" id="telefono" class="form-control" />
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" />
-                        <label for="nombre">Id direccion</label>
-                        <input type="number" name="idDireccion" id="idDireccion" class="form-control" />
+                        <input type="password" name="password" id="password" minlength="4" class="form-control" oninvalid="setCustomValidity('Ingrese contraseña minimo 4 caracteres')" required/>
                         <label for="nombre">Calle</label>
-                        <input type="text" name="calle" id="calle" class="form-control" />
+                        <input type="text" name="calle" id="calle" minlength="3" class="form-control" oninvalid="setCustomValidity('Ingrese Calle')" required/>
                         <label for="nombre">Comuna</label>
-                        <input type="text" name="comuna" id="comuna" class="form-control" />
+                        <input type="text" name="comuna" id="comuna" minlength="3" class="form-control" oninvalid="setCustomValidity('Ingrese Comuna')" required/>
                         <label for="nombre">Número Domicilio</label>
-                        <input type="number" name="numero" id="numero" class="form-control" />
+                        <input type="number" name="numero" id="numero" class="form-control" oninvalid="setCustomValidity('Ingrese numero domicilio')" required />
                         <label for="nombre">Número de departamento (Opcional)</label>
                         <input type="number" name="numerodpto" id="numerodpto" class="form-control" />
                         </br>
